@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 /**
  * The UI class
- * @author
+ * @Vincent DiRienzo
  *
  */
 public class ICalendarGenerator {
@@ -57,6 +57,11 @@ public class ICalendarGenerator {
 			
 			//add event to calendar
 			calendar.addVEvent(vEvent);
+			
+			//Asks user for input on classification
+			System.out.println("Input classification (Public/Private/Confidential)");
+			vEvent.setClassification(scanner.nextLine());
+			
 			
 			//ask if user wants to add more
 			System.out.println("\nDo you want to add more? (y/n) ");
