@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 /**
  * The UI class
- * @author DiRienzo, Vincent
+ * @Vincent DiRienzo
  *
  */
 public class ICalendarGenerator {
@@ -21,13 +21,18 @@ public class ICalendarGenerator {
 		
 		
 		do{
+			//create vevent
 			VEvent vEvent = new VEvent();
+			
+			//ask user evry detail in the event file
 			System.out.print("Event Title: ");
 			vEvent.setSummary(scanner.nextLine());
 			System.out.print("Event Description: ");
 			vEvent.setDescription(scanner.nextLine());
-			System.out.print("Even Location: ");
+			System.out.print("Event Location: ");
+			vEvent.setLocation(scanner.nextLine());
 			
+			//ask start date
 			Calendar start;
 			do{
 				System.out.print("Start Date (dd-mm-yyyy hh:mm (AM/PM): ");
@@ -35,6 +40,8 @@ public class ICalendarGenerator {
 			}while(start == null);
 			vEvent.setStart(start);
 			
+			
+			//ask end date
 			Calendar end;
 			do{
 				System.out.print("End Date (dd-mm-yyyy hh:mm (AM/PM): ");
@@ -42,17 +49,26 @@ public class ICalendarGenerator {
 			}while(end == null);
 			vEvent.setEnd(end);
 			
+			//ask event coordinates
+			System.out.print("Event coordinates (Longitude Latitute): ");
+			vEvent.setGeo(scanner.nextDouble(), scanner.nextDouble());
+			
+			scanner.nextLine();
+			
+			//add event to calendar
 			calendar.addVEvent(vEvent);
 			
+			//ask if user wants to add more
 			System.out.println("\nDo you want to add more? (y/n) ");
 			choice = scanner.nextLine();
 		}while(choice.startsWith("y"));
 		
 		
-		
+		//ask for file name
 		System.out.print("Enter the file name to save the calendar file: ");
 		calendar.saveCalendar(new File(scanner.nextLine()));
 		
+		//close
 		scanner.close();
 		
 	}
