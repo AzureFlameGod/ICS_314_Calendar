@@ -14,6 +14,7 @@ public class VEvent {
 	private String location;
 	private final String uid;
 	private Location geo;
+	private String classi;
 	
 	public VEvent() {
 		created = Calendar.getInstance();
@@ -77,6 +78,14 @@ public class VEvent {
 	public void setGeo(double longitude, double latitude) {
 		this.geo = new Location(longitude, latitude);
 	}
+	
+	public void setClassification(String classinput) {
+		this.classi = classinput;
+	}
+	
+	public String getClassification(){
+		return classi;
+	}
 
 
 	public String toString() {
@@ -100,6 +109,9 @@ public class VEvent {
 		//uid of event
 		output.append(ICalendarUtility.CRLF+"UID:"+uid);
 		
+		//Classification
+		output.append(ICalendarUtility.CRLF+"CLASS:"+ getClassification());
+		
 		//description and summary
 		output.append(ICalendarUtility.CRLF+"DESCRIPTION:"+getDescription());
 		output.append(ICalendarUtility.CRLF+"SUMMARY:"+getSummary());
@@ -112,7 +124,12 @@ public class VEvent {
 		if(geo!=null)
 			output.append(ICalendarUtility.CRLF+"GEO:"+geo.getLatitude()+";"+geo.getLongitude());
 		output.append(ICalendarUtility.CRLF+"END:VEVENT");
+		
 		return output.toString();
+		
+		
+		
+		
 	}
 	
 	
