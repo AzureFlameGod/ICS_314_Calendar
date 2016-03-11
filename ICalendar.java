@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Class to represent a calendar
- * @author DiRienzo, Vincent
+ * @author 
  *
  */
 public class ICalendar {
@@ -40,11 +40,17 @@ public class ICalendar {
 		StringBuilder output = new StringBuilder();
 
 		output.append("BEGIN:VCALENDAR");
+		
+		//add prod id and version
 		output.append(ICalendarUtility.CRLF+"PRODID:"+PRODID);
 		output.append(ICalendarUtility.CRLF+"VERSION:"+VERSION);
+		
+		//add all vevents toString
 		for (VEvent vEvent : events) {
 			output.append(ICalendarUtility.CRLF+vEvent.toString());
 		}
+		
+		
 		output.append(ICalendarUtility.CRLF+"END:VCALENDAR");
 		
 		

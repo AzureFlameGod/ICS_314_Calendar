@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 /**
  * The UI class
- * @Vincent DiRienzo
+ * @author
  *
  */
 public class ICalendarGenerator {

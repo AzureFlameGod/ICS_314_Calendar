@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
  * Creates a simple ics file with one event
- * @author DiRienzo, Vincent
+ * @author SONY
  *
  */
 public class Tester {
@@ -18,7 +18,7 @@ public class Tester {
 		event.setLocation("Hamilton Library");
 		event.setStart(parseDate("12-05-2016 1:00 pm"));
 		event.setEnd(parseDate("12-05-2016 2:00 pm"));
-		
+		event.setGeo(37.38, -122.082);
 		ICalendar calendar = new ICalendar();
 		calendar.addVEvent(event);
 		

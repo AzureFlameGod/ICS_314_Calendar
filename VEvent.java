@@ -1,7 +1,7 @@
 import java.util.Calendar;
 /**
  * This represent a calendar event
- * @author DiRienzo, Vincent
+ * @author 
  *
  */
 public class VEvent {
@@ -12,7 +12,8 @@ public class VEvent {
 	private Calendar created;
 	private String description;
 	private String location;
-	private String uid;
+	private final String uid;
+	private Location geo;
 	
 	public VEvent() {
 		created = Calendar.getInstance();
@@ -72,20 +73,44 @@ public class VEvent {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
+	public void setGeo(double longitude, double latitude) {
+		this.geo = new Location(longitude, latitude);
+	}
 
 
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("BEGIN:VEVENT");
+		
+		//if start is specified
 		if(start!=null)
 			output.append(ICalendarUtility.CRLF+"DTSTART:"+getStart());
+		
+		//if end is pecified
 		if(end!=null)
 			output.append(ICalendarUtility.CRLF+"DTEND:"+getEnd());
+		
+		//add stamp(time when event was generated in file)
 		output.append(ICalendarUtility.CRLF+"DTSTAMP:"+ICalendarUtility.toUTCDateTime(Calendar.getInstance()));
+		
+		//created date
 		output.append(ICalendarUtility.CRLF+"CREATED:"+getCreated());
+		
+		//uid of event
 		output.append(ICalendarUtility.CRLF+"UID:"+uid);
+		
+		//description and summary
 		output.append(ICalendarUtility.CRLF+"DESCRIPTION:"+getDescription());
 		output.append(ICalendarUtility.CRLF+"SUMMARY:"+getSummary());
+		
+		//if location was specified
+		if(location!=null)
+			output.append(ICalendarUtility.CRLF+"LOCATION:"+ICalendarUtility.formatAddress(location));
+		
+		//if geographical coordinaes were specified
+		if(geo!=null)
+			output.append(ICalendarUtility.CRLF+"GEO:"+geo.getLatitude()+";"+geo.getLongitude());
 		output.append(ICalendarUtility.CRLF+"END:VEVENT");
 		return output.toString();
 	}

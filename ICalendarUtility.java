@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.TimeZone;
 /**
  * Contains helper methods to generate iCalendar file
- * @author DiRienzo, Vincent
+ * @author 
  *
  */
 public abstract class ICalendarUtility {
