@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,6 +38,11 @@ public class ICalendar {
 	
 	@Override
 	public String toString() {
+		
+		//sort events based on start time
+		Collections.sort(events);
+		addComments(); //add comments
+		
 		StringBuilder output = new StringBuilder();
 
 		output.append("BEGIN:VCALENDAR");
@@ -45,7 +51,7 @@ public class ICalendar {
 		output.append(ICalendarUtility.CRLF+"PRODID:"+PRODID);
 		output.append(ICalendarUtility.CRLF+"VERSION:"+VERSION);
 		
-		//add all vevents toString
+		//add all events toString
 		for (VEvent vEvent : events) {
 			output.append(ICalendarUtility.CRLF+vEvent.toString());
 		}
@@ -55,6 +61,32 @@ public class ICalendar {
 		
 		
 		return output.toString();
+	}
+	
+	
+	private void addComments(){
+		
+		//if no events return
+		if(events.isEmpty())
+			return;
+		
+		//set previous to first
+		VEvent previous = events.get(0);
+		
+		for (int i = 1; i < events.size(); i++) {
+			//get next
+			VEvent next = events.get(i);
+			
+			//if both events have coordinates
+			if(previous.getGeo()!=null && next.getGeo()!=null){
+				//calculate geo distance
+				double distance = ICalendarUtility.calcGeoDistance(previous.getGeo(), next.getGeo());
+				//set comments
+				previous.setComments(distance+" km to next event");
+			}
+			
+			previous = next;
+		}
 	}
 	
 	

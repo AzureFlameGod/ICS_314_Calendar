@@ -42,7 +42,7 @@ public abstract class ICalendarUtility {
 		if(date == null)
 			return null;
 		
-		DateFormat formatter = new SimpleDateFormat("yyyyMMdd'T'hhmmss'Z'");
+		DateFormat formatter = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 		return formatter.format(date.getTime());
 	}
@@ -53,5 +53,33 @@ public abstract class ICalendarUtility {
 	}
 	
 
+	/**
+	 * Calculate distance between two locations
+	 * @param location1 location 1
+	 * @param location2 location 2
+	 * @return distance
+	 */
+	public static double calcGeoDistance(Location location1, Location location2){
+		double lng1 = location1.getLongitude();
+		double lng2 = location2.getLongitude();
+		
+		
+		
+		double lat1 = location1.getLatitude();
+		double lat2 = location2.getLatitude();
+		
+		 	double earthRadius = 6371; //meters
+		    
+		 	double dLat = Math.toRadians(lat2-lat1);
+		    double dLng = Math.toRadians(lng2-lng1);
+		    
+		    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+		               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+		               Math.sin(dLng/2) * Math.sin(dLng/2);
+		    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		    
+		    return (earthRadius * c);
+
+	}
 	
 }

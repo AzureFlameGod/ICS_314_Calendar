@@ -49,9 +49,19 @@ public class ICalendarGenerator {
 			}while(end == null);
 			vEvent.setEnd(end);
 			
-			//ask event coordinates
-			System.out.print("Event coordinates (Longitude Latitute): ");
-			vEvent.setGeo(scanner.nextDouble(), scanner.nextDouble());
+			do{
+				try{
+					//ask event coordinates
+					System.out.print("Event coordinates (Longitude Latitute): ");
+					vEvent.setGeo(scanner.nextDouble(), scanner.nextDouble());
+					break;
+				}catch(Exception e){
+					System.out.println("Error, try again");
+					scanner.nextLine();
+				}
+				
+			}while(true);
+			
 			
 			scanner.nextLine();
 			
